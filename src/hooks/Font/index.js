@@ -1,8 +1,16 @@
 import { createContext, useContext } from "react";
-import { ActivityIndicator } from "react-native";
+import { useFonts } from 'expo-font';
+import { ActivityIndicator ,View, Text} from "react-native";
 
 const FontContext = createContext({});
 
+export function useFont() {
+  const context = useContext[FontContext];
+  if (!context) {
+    throw new Error("useFont must be used within a FontProvider");
+  }
+  return context;
+}
 export function FontProvider({ children }) {
   const [loaded, error] = useFonts({
     regular: require("../../assets/fonts/Montserrat-Regular.ttf"),
@@ -32,10 +40,3 @@ export function FontProvider({ children }) {
   <FontContext.Provider value={{}}>{children}</FontContext.Provider>;
 }
 
-export function useFont() {
-  const context = useContext[FontContext];
-  if (!context) {
-    throw new Error("useFont must be used within a FontProvider");
-  }
-  return context;
-}
